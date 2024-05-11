@@ -7,6 +7,7 @@ public class Portal : MonoBehaviour {
     public Portal linkedPortal;
     public MeshRenderer screen;
     public int recursionLimit = 5;
+    public bool isPortal = false;
 
     [Header ("Advanced Settings")]
     public float nearClipOffset = 0.05f;
@@ -44,7 +45,7 @@ public class Portal : MonoBehaviour {
             int portalSide = System.Math.Sign (Vector3.Dot (offsetFromPortal, transform.forward));
             int portalSideOld = System.Math.Sign (Vector3.Dot (traveller.previousOffsetFromPortal, transform.forward));
             // Teleport the traveller if it has crossed from one side of the portal to the other
-            if (portalSide != portalSideOld) {
+            if (portalSide != portalSideOld && isPortal) {
                 var positionOld = travellerT.position;
                 var rotOld = travellerT.rotation;
                 traveller.Teleport (transform, linkedPortal.transform, m.GetColumn (3), m.rotation);
